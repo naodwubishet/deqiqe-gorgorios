@@ -1,1 +1,631 @@
 
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ደቂቀ ጎርጎርዮስ - የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ዲጂታል ላይብረሪ">
+<title>ደቂቀ ጎርጎርዮስ | Digital Library</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:#080808;
+  --panel:#141311;
+  --panel2:#1d1a15;
+  --gold:#b99a52;
+  --bronze:#8e7040;
+  --ivory:#fffff0;
+  --muted:#bdb5a3;
+  --border:#393225;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  background:var(--black);
+  color:var(--ivory);
+  font-family:'Noto Serif Ethiopic',serif;
+  line-height:1.9;
+}
+button,input {font:inherit}
+header {
+  background:#080808;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.top {
+  max-width:1150px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.brand img {
+  width:65px;
+  height:65px;
+  object-fit:contain;
+  border-radius:50%;
+  background:white;
+}
+.brand h1 {
+  color:var(--gold);
+  font-size:23px;
+  font-weight:800;
+}
+.brand p {
+  color:var(--ivory);
+  font-size:11px;
+}
+nav {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+nav button,.menu-btn {
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--ivory);
+  padding:8px 13px;
+  border-radius:7px;
+  cursor:pointer;
+}
+nav button:hover,.menu-btn:hover {
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.hero {
+  max-width:1100px;
+  margin:35px auto;
+  padding:55px 20px;
+  text-align:center;
+  background:linear-gradient(140deg,#19160f,#080808 75%);
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+.hero h2 {
+  color:var(--gold);
+  font-size:clamp(24px,5vw,39px);
+  margin-bottom:10px;
+}
+.hero h3 {
+  color:var(--ivory);
+  font-size:clamp(15px,3vw,21px);
+  font-weight:500;
+}
+.hero p {
+  color:var(--muted);
+  margin:18px auto;
+  max-width:700px;
+}
+.gold-line {
+  width:90px;
+  height:2px;
+  background:var(--gold);
+  margin:18px auto;
+}
+.container {
+  max-width:1100px;
+  margin:35px auto;
+  padding:0 20px;
+}
+.section-title {
+  color:var(--gold);
+  font-size:23px;
+  margin-bottom:18px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:10px;
+}
+.search-box {
+  display:flex;
+  gap:8px;
+  margin-bottom:20px;
+}
+.search-box input {
+  width:100%;
+  padding:13px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--ivory);
+  outline:none;
+}
+.search-box input:focus {
+  border-color:var(--gold);
+}
+.categories {
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin:20px 0 25px;
+}
+.cat-btn {
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:var(--ivory);
+  padding:9px 13px;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:13px;
+}
+.cat-btn.active,.cat-btn:hover {
+  background:var(--bronze);
+  color:white;
+  border-color:var(--gold);
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:17px;
+}
+.card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:20px;
+  transition:.2s;
+}
+.card:hover {
+  border-color:var(--gold);
+  transform:translateY(-3px);
+}
+.card .category {
+  color:var(--gold);
+  font-size:12px;
+}
+.card h3 {
+  color:var(--ivory);
+  font-size:17px;
+  margin:10px 0;
+}
+.card p {
+  color:var(--muted);
+  font-size:13px;
+}
+.read-btn {
+  margin-top:16px;
+  background:var(--bronze);
+  color:white;
+  border:1px solid var(--gold);
+  border-radius:6px;
+  padding:9px 15px;
+  cursor:pointer;
+}
+.read-btn:hover {background:#a6874a}
+.article {
+  display:none;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(18px,4vw,40px);
+  margin:30px 0;
+}
+.article h2 {
+  color:var(--gold);
+  font-size:24px;
+  margin:18px 0;
+}
+.article h3 {
+  color:var(--gold);
+  margin:20px 0 8px;
+}
+.article p {
+  color:var(--ivory);
+  margin-bottom:15px;
+  text-align:justify;
+}
+.article .reference {
+  color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--border);
+  padding-top:15px;
+  margin-top:20px;
+}
+.back-btn {
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.empty {
+  color:var(--muted);
+  padding:30px;
+  text-align:center;
+  grid-column:1/-1;
+}
+footer {
+  margin-top:60px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:30px 15px;
+  color:var(--muted);
+  font-size:13px;
+}
+footer strong {color:var(--gold)}
+@media(max-width:650px) {
+  .top {align-items:flex-start}
+  .brand img {width:49px;height:49px}
+  .brand h1 {font-size:17px}
+  .brand p {font-size:9px}
+  nav {justify-content:flex-end}
+  nav button {font-size:11px;padding:6px}
+  .hero {margin:20px 12px;padding:35px 15px}
+  .container {padding:0 13px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="top">
+    <div class="brand">
+      <img src="logo.png" alt="የደቂቀ ጎርጎርዮስ ምልክት"
+      onerror="this.style.display='none'">
+      <div>
+        <h1>ደቂቀ ጎርጎርዮስ</h1>
+        <p>ORTHODOX DIGITAL LIBRARY</p>
+      </div>
+    </div>
+    <nav>
+      <button onclick="showHome()">መነሻ</button>
+      <button onclick="showAll()">ቤተ መጻሕፍት</button>
+      <button onclick="about()">ስለ እኛ</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <h2>ደቂቀ ጎርጎርዮስ</h2>
+  <div class="gold-line"></div>
+  <h3>አንድ አምላክ አንድ ጌታ አንድ መንፈስ</h3>
+  <p>
+    የእምነት፣ የታሪክ፣ የሥነ መለኮትና
+    የዕቅበተ እምነት የንባብ ማዕከል።
+    እውቀትን በጥናት፣ በማስረጃና በአክብሮት እንፈልጋለን።
+  </p>
+</section>
+
+<main class="container" id="library">
+  <h2 class="section-title">የዲጂታል ቤተ መጻሕፍት</h2>
+
+  <div class="search-box">
+    <input id="search" type="search"
+      placeholder="ትምህርት ወይም ርዕስ ፈልግ..."
+      oninput="render()">
+  </div>
+
+  <div class="categories" id="categories"></div>
+  <div class="grid" id="cards"></div>
+
+  <section class="article" id="article">
+    <button class="back-btn" onclick="showAll()">← ወደ ቤተ መጻሕፍት</button>
+    <div id="articleContent"></div>
+    <button class="back-btn" onclick="showAll()">← ተመለስ</button>
+  </section>
+</main>
+
+<script>
+const articles = [
+{
+id:1,cat:"ሥነ መለኮት",
+title:"የሥላሴ ትምህርት፦ አንድ መለኮት ሦስት አካላት",
+desc:"የአብ፣ የወልድና የመንፈስ ቅዱስ አንድነትና ልዩነት።",
+body:[
+"የክርስቲያናዊ እምነት ማዕከላዊ ትምህርት ሥላሴ ነው። ሥላሴ ማለት አንድ መለኮታዊ ባሕርይ በሦስት አካላት መኖሩን የሚገልጽ እምነት ነው።",
+"አብ አብ ነው፤ ወልድ ወልድ ነው፤ መንፈስ ቅዱስም መንፈስ ቅዱስ ነው። አካላቱ አንድ አይደሉም፤ መለኮታዊ ባሕርያቸው ግን አንድ ነው።",
+"ማቴዎስ 28፥19 አብን፣ ወልድንና መንፈስ ቅዱስን በአንድ ስም የሚጠቅስ የጥምቀት ትእዛዝ ይሰጣል። 2ኛ ቆሮንቶስ 13፥14 ደግሞ ሦስቱን በአንድ የበረከት አገላለጽ ያቀርባል።",
+"ስለዚህ ሥላሴ ሦስት አማልክት ማለት ሳይሆን አንድ አምላክ በሦስት አካላት መኖሩን የሚገልጽ የክርስቲያን እምነት ነው።"
+],
+refs:"መጽሐፍ ቅዱስ፦ ማቴዎስ 28፥19፤ ዮሐንስ 1፥1-3፤ 2ኛ ቆሮንቶስ 13፥14።"
+},
+{
+id:2,cat:"ሥነ መለኮት",
+title:"ተዋሕዶ፦ አንድነትና ምሥጢረ ሥጋዌ",
+desc:"የክርስቶስ ፍጹም አምላነትና ፍጹም ሰውነት።",
+body:[
+"ሥጋዌ ማለት የእግዚአብሔር ወልድ ሰው መሆኑ ነው። ይህ ሰው በመሆኑ መለኮቱን ትቶ ወይም ወደ ሰው ባሕርይ ተለውጦ አይደለም።",
+"በኦርቶዶክሳዊ ተዋሕዶ እምነት ክርስቶስ ፍጹም አምላክና ፍጹም ሰው ነው። መለኮትና ሰውነት በአንድ አካል ተዋሕደዋል።",
+"ዮሐንስ 1፥14 'ቃልም ሥጋ ሆነ' ብሎ ይመሰክራል። ዕብራውያን 2፥14-17 የክርስቶስን እውነተኛ ሰውነት ያብራራል።",
+"ተዋሕዶ ማለት የመለኮትና የሰውነት መቀላቀል ወይም መጥፋት ሳይሆን የቃል አንድ አካል ሆነው መዋሐዳቸውን የሚገልጽ ነው።"
+],
+refs:"ዮሐንስ 1፥14፤ ፊልጵስዩስ 2፥6-8፤ ዕብራውያን 2፥14-17።"
+},
+{
+id:3,cat:"ቅዱሳት መጻሕፍት",
+title:"መጽሐፍ ቅዱስ፦ ታሪክ፣ ቀኖናና ትርጓሜ",
+desc:"የመጽሐፍ ቅዱስ አወቃቀርና የንባብ መርሆች።",
+body:[
+"መጽሐፍ ቅዱስ የብሉይና የሐዲስ ኪዳን መጻሕፍትን የያዘ የቅዱስ መጻሕፍት ስብስብ ነው። መጻሕፍቱ በተለያዩ ዘመናትና በተለያዩ ጸሐፊዎች ተጽፈዋል።",
+"ቀኖና ማለት ቤተክርስቲያን እንደ ቅዱስ መጽሐፍ የተቀበለቻቸውን መጻሕፍት የሚያመለክት ቃል ነው። በተለያዩ የክርስቲያን ትውፊቶች የቀኖና ዝርዝር ልዩነት አለው።",
+"ትርጓሜ ሲደረግ የጽሑፉን ታሪካዊ አውድ፣ የቋንቋ ትርጉም፣ የመጽሐፉን ዓላማና ከሌሎች ጥቅሶች ጋር ያለውን ግንኙነት መመርመር ያስፈልጋል።",
+"አንድን ጥቅስ ከአውዱ ነጥሎ መተርጎም ስህተት ሊያመጣ ይችላል። ስለዚህ ሙሉውን ምዕራፍና የመጽሐፉን ዓላማ ማንበብ ጠቃሚ ነው።"
+],
+refs:"2ኛ ጢሞቴዎስ 3፥16-17፤ ሉቃስ 1፥1-4።"
+},
+{
+id:4,cat:"ቅዱሳት መጻሕፍት",
+title:"የወንጌላት ደራሲነትና ታሪካዊ ምስክርነት",
+desc:"የአራቱ ወንጌላት ስም፣ ይዘትና ትውፊታዊ ደራሲዎች።",
+body:[
+"አራቱ ቀኖናዊ ወንጌላት ማቴዎስ፣ ማርቆስ፣ ሉቃስና ዮሐንስ ናቸው። እያንዳንዱ ወንጌል የኢየሱስን ሕይወት፣ ትምህርት፣ ሞትና ትንሣኤ ይመሰክራል።",
+"የቤተክርስቲያን ትውፊት ወንጌላቱን ከሐዋርያው ማቴዎስ፣ ከማርቆስ፣ ከሐኪሙ ሉቃስና ከሐዋርያው ዮሐንስ ጋር ያያይዛል።",
+"የዘመናዊ ምሁራን ጥናት የወንጌላትን የተጻፉበት ጊዜ፣ ምንጮችና የጽሑፍ ግንኙነቶች ይመረምራል። በዚህ ላይ የምሁራን አስተያየት ልዩነት አለ።",
+"ታሪካዊ ጥናት የቤተክርስቲያንን ትውፊት በትክክል መግለጽና የምሁራንን ጥያቄዎች በማስረጃ መመለስ ይጠይቃል።"
+],
+refs:"ሉቃስ 1፥1-4፤ ዮሐንስ 20፥30-31።"
+},
+{
+id:5,cat:"የቤተክርስቲያን ታሪክ",
+title:"የኒቅያ ጉባኤ 325 ዓ.ም.",
+desc:"የኒቅያ ጉባኤ ምክንያት፣ ውሳኔና ታሪካዊ ትርጉም።",
+body:[
+"የኒቅያ ጉባኤ በ325 ዓ.ም. በንጉሥ ቆስጠንጢኖስ ዘመን በኒቅያ ተሰበሰበ። ዋናው የክርክር ጉዳይ የወልድ መለኮትና ከአብ ጋር ያለው ግንኙነት ነበር።",
+"አርዮስ ወልድ ከአብ ያነሰና ፍጡር ነው የሚል አስተምህሮ አቀረበ። ጉባኤው ግን ወልድ ከአብ ጋር በመለኮት አንድ መሆኑን በማረጋገጥ የኒቅያን እምነት አወጀ።",
+"በዚህ ጉባኤ የተጠቀመው ሆሞኡሲዮስ (Homoousios) የሚለው ቃል ወልድ ከአብ ጋር አንድ ባሕርይ እንዳለው ያመለክታል።",
+"የኒቅያ ጉባኤ በክርስቲያናዊ የእምነት ታሪክ ውስጥ ወሳኝ ምዕራፍ ነው። የእምነት ቃላትን በጥንቃቄ መግለጽ ያለውን አስፈላጊነት ያሳያል።"
+],
+refs:"የኒቅያ እምነት ቃል፤ 325 ዓ.ም.፤ የጥንታዊ ቤተክርስቲያን ታሪክ።"
+},
+{
+id:6,cat:"የቤተክርስቲያን ታሪክ",
+title:"የቁስጥንጥንያ ጉባኤ 381 ዓ.ም.",
+desc:"የእምነት ቃል እድገትና የመንፈስ ቅዱስ መለኮት።",
+body:[
+"በ381 ዓ.ም. በቁስጥንጥንያ የተካሄደው ጉባኤ የኒቅያን እምነት በማብራራት የመንፈስ ቅዱስን ክብርና መለኮት አጠናከረ።",
+"የመንፈስ ቅዱስ መለኮት በቤተክርስቲያን ውስጥ የተወሳሰበ ክርክር ነበር። ጉባኤው መንፈስ ቅዱስ ከአብ ጋር እንደሚመለክና እንደሚከብር በእምነት ቃሉ ገለጸ።",
+"የኒቅያ-ቁስጥንጥንያ እምነት ቃል በብዙ የክርስቲያን ትውፊቶች ውስጥ የሥላሴ እምነት መግለጫ ሆኖ ይጠቀማል።"
+],
+refs:"የኒቅያ-ቁስጥንጥንያ እምነት ቃል፤ 381 ዓ.ም.።"
+},
+{
+id:7,cat:"ዕቅበተ እምነት",
+title:"ዕቅበተ እምነት ምንድን ነው?",
+desc:"እምነትን በእውቀት፣ በምክንያትና በአክብሮት መከላከል።",
+body:[
+"ዕቅበተ እምነት (Apologetics) ማለት ስለ እምነት የሚነሱ ጥያቄዎችን በምክንያታዊ ማብራሪያ፣ በታሪካዊ ምርምርና በቅዱሳት መጻሕፍት ማስረጃ መመለስ ነው።",
+"1ኛ ጴጥሮስ 3፥15 ስለ ተስፋችን ለሚጠይቁን ሁሉ መልስ ለመስጠት ዝግጁ እንድንሆን ያስተምራል። ይህንም በየዋህነትና በፍርሃት ማድረግ እንዳለብን ያሳስባል።",
+"ጥሩ ዕቅበተ እምነት የሚቃወምን ሰው ማዋረድ አይደለም። የሚቃወመውን አቋም በትክክል መረዳት፣ ማስረጃዎችን መመዘንና በግልጽ መናገር ነው።",
+"የዕቅበተ እምነት መሠረታዊ መርሆዎች ታማኝነት፣ ትሕትና፣ ምክንያታዊነትና ለእውነት መቆም ናቸው።"
+],
+refs:"1ኛ ጴጥሮስ 3፥15፤ ይሁዳ 1፥3።"
+},
+{
+id:8,cat:"ዕቅበተ እምነት",
+title:"የክርስቶስ ትንሣኤ፦ ታሪካዊ ጥያቄዎች",
+desc:"የትንሣኤ ምስክርነቶችና ታሪካዊ ክርክሮች።",
+body:[
+"የክርስቶስ ትንሣኤ የክርስትና እምነት ማዕከል ነው። ጳውሎስ በ1ኛ ቆሮንቶስ 15 ውስጥ ትንሣኤውን ከወንጌል መሠረታዊ መልእክት ጋር ያያይዛል።",
+"በታሪካዊ ጥናት የሚመረመሩ ጉዳዮች የመጀመሪያዎቹ የክርስቲያኖች ምስክርነት፣ የደቀ መዛሙርቱ ለውጥ፣ የትንሣኤ መልእክት መስፋፋትና የተለያዩ የታሪክ ምንጮች ናቸው።",
+"የታሪክ ምርምር ማስረጃን ይመዝናል፤ የእምነት ትርጓሜም ከዚያ ጋር በጥልቀት ይወያያል። የተለያዩ አቋሞችን በትክክል መግለጽ ያስፈልጋል።"
+],
+refs:"1ኛ ቆሮንቶስ 15፥1-8፤ ማርቆስ 16፤ ዮሐንስ 20።"
+},
+{
+id:9,cat:"የቅዱሳን አበው",
+title:"ቅዱስ ጎርጎርዮስ ዘናዚያንዙ",
+desc:"የሥላሴ መምህርና ከታላላቅ የቤተክርስቲያን አበው አንዱ።",
+body:[
+"ቅዱስ ጎርጎርዮስ ዘናዚያንዙ ከታላላቅ የጥንታዊ ቤተክርስቲያን መምህራን አንዱ ነው። በሥላሴ ላይ ባቀረባቸው የመለኮት ንግግሮች ይታወቃል።",
+"በአራተኛው መቶ ዘመን በክርስቶስ መለኮትና በመንፈስ ቅዱስ አምላክነት ላይ በተነሱ ክርክሮች ውስጥ ታላቅ ሚና ነበረው።",
+"የእርሱ ጽሑፎች የሥላሴን አንድነትና የአካላትን ልዩነት በጥልቀት ያብራራሉ። በግሪክ ቋንቋ የተጻፉ ንግግሮቹ ለሥነ መለኮት ጥናት አስፈላጊ ምንጭ ናቸው።"
+],
+refs:"Gregory of Nazianzus, Theological Orations; የጥንታዊ ክርስቲያናዊ ጽሑፎች።"
+},
+{
+id:10,cat:"የቅዱሳን አበው",
+title:"ቅዱስ አትናቴዎስ ዘእስክንድርያ",
+desc:"የአርዮሳዊ ክርክር ተቃዋሚና የኒቅያ እምነት ተከላካይ።",
+body:[
+"ቅዱስ አትናቴዎስ ዘእስክንድርያ በአራተኛው መቶ ዘመን የእስክንድርያ ጳጳስ ነበር። በአርዮሳዊ አስተምህሮ ላይ በጽናት ተቃውሞ አቀረበ።",
+"የእርሱ ዋና አስተምህሮ የወልድ እውነተኛ መለኮትነትና የሰው ድኅነት ከሥጋዌ ጋር ያለውን ግንኙነት ያብራራል።",
+"On the Incarnation በሚለው የእርሱ ሥራ ሥጋዌንና የሰው መዳንን በጥልቀት ይመለከታል።"
+],
+refs:"Athanasius, On the Incarnation; የኒቅያ እምነት ታሪክ።"
+},
+{
+id:11,cat:"እስልምና",
+title:"እስልምና፦ አመጣጥና መሠረታዊ እምነቶች",
+desc:"የእስልምና ታሪክ፣ ቁርአንና አምስቱ መሠረቶች።",
+body:[
+"እስልምና በሰባተኛው መቶ ዘመን በዓረቢያ የተነሳ የአንድ አምላክ እምነት ነው። ተከታዮቹ ሙስሊሞች ይባላሉ።",
+"የእስልምና ዋና መጽሐፍ ቁርአን ነው። ሙስሊሞች ቁርአንን ለሙሐመድ የተገለጠ የአላህ ቃል እንደሆነ ያምናሉ።",
+"የእስልምና አምስቱ መሠረቶች ሸሃዳ፣ ሶላት፣ ዘካ፣ ጾምና ሐጅ ናቸው። እነዚህ በሙስሊም ሕይወት ውስጥ ዋና ሥፍራ አላቸው።",
+"ክርስቲያናዊ ጥናት እስልምናን በትክክል ከራሱ ምንጮች መረዳትን፣ ከዚያም ከክርስቲያናዊ እምነት ጋር ያለውን ልዩነት በግልጽ መመርመርን ይጠይቃል።"
+],
+refs:"ቁርአን፤ Sahih al-Bukhari, Book of Faith፤ የእስልምና ታሪክ ጥናቶች።"
+},
+{
+id:12,cat:"እስልምና",
+title:"ነቢዩ ሙሐመድ፦ ሕይወትና ታሪካዊ ምንጮች",
+desc:"የሙሐመድ ሕይወትን ከሲራ፣ ሐዲስና ታሪክ ምንጮች መመርመር።",
+body:[
+"ሙሐመድ በ570 ገደማ በመካ እንደተወለደ የእስልምና ትውፊት ይናገራል። በ610 ገደማ የመጀመሪያውን ራዕይ እንደተቀበለ የሙስሊም ትውፊት ያቀርባል።",
+"ስለ ሙሐመድ ሕይወት ለማጥናት የሲራ ጽሑፎችን፣ ሐዲሶችን፣ ቁርአንንና ከእስልምና ውጭ የተጻፉ የጥንት ምንጮችን መመርመር ያስፈልጋል።",
+"እነዚህ ምንጮች በተጻፉበት ጊዜ፣ በዓላማቸውና በታሪካዊ ትክክለኛነታቸው ይለያያሉ። ስለዚህ ሁሉንም ምንጮች በአንድ ደረጃ መመዘን ተገቢ አይደለም።",
+"ክርስቲያናዊ ዕቅበተ እምነት ሲያደርግ ሙሐመድን ለመረዳት የሙስሊም ምንጮችን በታማኝነት መጥቀስና ታሪካዊ ጥያቄዎችን በማስረጃ መመርመር አለበት።"
+],
+refs:"Ibn Ishaq / Ibn Hisham, Sirat Rasul Allah፤ ቁርአን፤ የጥንት የውጭ ታሪካዊ ምንጮች።"
+},
+{
+id:13,cat:"እስልምና",
+title:"አላህ፦ የእስልምና የአምላክ ጽንሰ ሐሳብ",
+desc:"ተውሒድ፣ የአላህ ባሕርያትና ከሥላሴ ጋር ያለው ንጽጽር።",
+body:[
+"አላህ በዓረብኛ አምላክ ማለት ነው። በእስልምና አላህ አንድ፣ ፈጣሪ፣ ሁሉን ቻይና ሁሉን አዋቂ እንደሆነ ይታመናል።",
+"ተውሒድ የአላህን አንድነት የሚገልጽ የእስልምና ማዕከላዊ ትምህርት ነው። ሙስሊሞች ከአላህ ጋር ሌላ አምላክ ማጋራትን ይቃወማሉ።",
+"በክርስትናና በእስልምና መካከል ስለ አምላክ አንድነት የተለያዩ የእምነት ትርጓሜዎች አሉ። ክርስቲያኖች አንድ መለኮት በሦስት አካላት እንዳለ ያምናሉ፤ ይህንም ሦስት አማልክት ብለው አይገልጹም።",
+"ንጽጽሩ በተገቢ መንገድ እንዲካሄድ የሁለቱንም እምነቶች ዋና ምንጮች ማንበብና በትክክል መግለጽ ያስፈልጋል።"
+],
+refs:"ቁርአን 112፥1-4፤ ቁርአን 2፥255፤ ማቴዎስ 28፥19፤ ዮሐንስ 1፥1።"
+},
+{
+id:14,cat:"እስልምና",
+title:"ቁርአንና ሐዲስ፦ ምንጮችና ታሪካዊ ጥናት",
+desc:"የቁርአንና የሐዲስ ሥልጣን፣ ስብስብና ማረጋገጫ።",
+body:[
+"ቁርአን በእስልምና ዋና ቅዱስ መጽሐፍ ነው። ሐዲስ ደግሞ ስለ ሙሐመድ ንግግሮች፣ ተግባራትና ፈቃዶች የሚዘግቡ ወጎችን ያመለክታል።",
+"የሐዲስ ምርመራ የዘጋቢዎችን ሰንሰለት (Isnad) እና የዘገባውን ጽሑፍ (Matn) ይመለከታል። በእስልምና የተለያዩ የሐዲስ ደረጃዎች አሉ።",
+"ለትክክለኛ ጥናት የሐዲሱን መጽሐፍ፣ ቁጥር፣ እትምና የዘገባውን አውድ መግለጽ ያስፈልጋል። የቁጥር ልዩነት በእትሞች መካከል ሊኖር ይችላል።",
+"ክርስቲያናዊ ተመራማሪ የሙስሊም ምንጮችን በትክክል ሳይጠቅስ ክርክር ማቅረብ የለበትም። የመጀመሪያ ምንጮችን ማንበብ የጥናቱ መሠረት ነው።"
+],
+refs:"ቁርአን፤ Sahih al-Bukhari፤ Sahih Muslim፤ የሐዲስ ሳይንስ ጥናቶች።"
+},
+{
+id:15,cat:"ፍልስፍናና ሎጂክ",
+title:"ሎጂክ፦ የክርክር መሠረቶች",
+desc:"Premise፣ Conclusion፣ Deduction እና Induction።",
+body:[
+"ሎጂክ ትክክለኛ አስተሳሰብና ክርክርን የሚያጠና የፍልስፍና ዘርፍ ነው። አንድ ክርክር መነሻ ሐሳቦችን (Premises) እና መደምደሚያን (Conclusion) ይይዛል።",
+"Deductive argument መነሻ ሐሳቦቹ እውነት ከሆኑ መደምደሚያው በአስፈላጊነት የሚከተልበት ክርክር ነው። Inductive argument ደግሞ ከተወሰኑ ምሳሌዎች በመነሳት አጠቃላይ ውሳኔ ያቀርባል።",
+"Logical fallacy ማለት በክርክር ውስጥ የሚፈጠር የምክንያት ስህተት ነው። ለምሳሌ Ad Hominem የተናጋሪውን ሰው በማጥቃት ክርክሩን ሳይመልስ መቅረት ነው።",
+"በዕቅበተ እምነት ውስጥ ሎጂክ የሚጠቅመው ክርክሮችን በግልጽ ለመመርመርና የማስረጃ ጥራትን ለመገምገም ነው።"
+],
+refs:"Aristotle, Organon፤ የዘመናዊ ሎጂክ መግቢያ ጽሑፎች።"
+},
+{
+id:16,cat:"ፍልስፍናና ሎጂክ",
+title:"ኤፒስተሞሎጂ፦ እውቀት ምንድን ነው?",
+desc:"Empiricism፣ Rationalism፣ Revelation እና እውነት።",
+body:[
+"ኤፒስተሞሎጂ የእውቀት ተፈጥሮን፣ ምንጮቹንና የእውቀት ወሰንን የሚያጠና የፍልስፍና ዘርፍ ነው።",
+"Empiricism እውቀት በስሜታዊ ልምድና በምልከታ የሚገኝበትን ሚና ያጎላል። Rationalism ደግሞ ለምክንያትና ለአእምሮ አስፈላጊ ሥፍራ ይሰጣል።",
+"በሥነ መለኮት ጥናት ራዕይና ትውፊት እንደ እውቀት ምንጮች ይታያሉ። እነዚህን ምንጮች ከምክንያትና ከታሪካዊ ምርምር ጋር ማወዳደር ይቻላል።",
+"ጥሩ ተመራማሪ የሚያምነውን ብቻ ሳይሆን ለምን እንደሚያምን ይጠይቃል፤ የማስረጃውን ጥራትም ይመረምራል።"
+],
+refs:"የፍልስፍና መግቢያ፤ የእውቀት ሥነ ፍልስፍና ጥናቶች።"
+},
+{
+id:17,cat:"ክርስቲያናዊ ሥነ ምግባር",
+title:"ክርስቲያናዊ ሥነ ምግባርና የፍቅር ትእዛዝ",
+desc:"ፍቅር፣ ይቅርታ፣ ትሕትናና የሰው ክብር።",
+body:[
+"ክርስቲያናዊ ሥነ ምግባር በክርስቶስ ትምህርት ላይ የተመሠረተ የሕይወት መመሪያ ነው። ፍቅር፣ ርኅራኄ፣ ፍትሕና ይቅርታ ዋና እሴቶቹ ናቸው።",
+"ኢየሱስ በማቴዎስ 22፥37-40 እግዚአብሔርን በፍጹም ፍቅር መውደድና ባልንጀራን እንደ ራስ መውደድ የሕጉ ማዕከል መሆኑን አስተማረ።",
+"የእምነት መከላከያ ከፍቅርና ከሥነ ምግባር መለየት የለበትም። ሰውን ማክበርና አስተሳሰቡን በምክንያት መተቸት አብረው ሊሄዱ ይችላሉ።",
+"ስለዚህ እውነትን መፈለግ በትሕትና፣ በትዕግሥትና በሰው ክብር ላይ በተመሠረተ መንገድ መካሄድ አለበት።"
+],
+refs:"ማቴዎስ 22፥37-40፤ ማቴዎስ 5፥43-48፤ 1ኛ ቆሮንቶስ 13።"
+}
+];
+
+const categoryNames = [
+"ሁሉም",
+"ሥነ መለኮት",
+"ቅዱሳት መጻሕፍት",
+"የቤተክርስቲያን ታሪክ",
+"ዕቅበተ እምነት",
+"የቅዱሳን አበው",
+"እስልምና",
+"ፍልስፍናና ሎጂክ",
+"ክርስቲያናዊ ሥነ ምግባር"
+];
+
+let selectedCategory = "ሁሉም";
+
+function createCategories() {
+  document.getElementById("categories").innerHTML =
+  categoryNames.map(c => `
+    <button class="cat-btn ${c===selectedCategory?'active':''}"
+      onclick="selectCategory('${c}')">${c}</button>
+  `).join("");
+}
+
+function selectCategory(cat) {
+  selectedCategory=cat;
+  document.getElementById("article").style.display="none";
+  document.getElementById("cards").style.display="grid";
+  createCategories();
+  render();
+}
+
+function render() {
+  const query=document.getElementById("search").value.toLowerCase().trim();
+  const filtered=articles.filter(a => {
+    const matchesCategory=selectedCategory==="ሁሉም" || a.cat===selectedCategory;
+    const matchesSearch=(a.title+a.desc+a.cat).toLowerCase().includes(query);
+    return matchesCategory && matchesSearch;
+  });
+
+  document.getElementById("cards").innerHTML=filtered.length
+  ? filtered.map(a=>`
+    <div class="card">
+      <span class="category">${a.cat}</span>
+      <h3>${a.title}</h3>
+      <p>${a.desc}</p>
+      <button class="read-btn" onclick="openArticle(${a.id})">
+        ትምህርቱን አንብብ →
+      </button>
+    </div>
+  `).join("")
+  : `<div class="empty">የፈለግኸው ትምህርት አልተገኘም።</div>`;
+}
+
+function openArticle(id) {
+  const a=articles.find(x=>x.id===id);
+  if(!a) return;
+
+  document.getElementById("hero").style.display="none";
+  document.getElementById("cards").style.display="none";
+  document.getElementById("categories").style.display="none";
+  document.getElementById("search").parentElement.style.display="none";
+
+  document.getElementById("articleContent").innerHTML=`
+    <span class="category">${a.cat}</span>
+    <h2>${a.title}</h2>
+    <p>${a.desc}</p>
+    ${a.body.map(p=>`<p>${p}</p>`).join("")}
+    <div class="reference"><strong>የጥናት ማጣቀሻዎች፦</strong><br>${a.refs}</div>
+  `;
+
+  document.getElementById("article").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showAll() {
+  document.getElementById("hero").style.display="block";
+  document.getElementById("article").style.display="none";
+  document.getElementById("cards").style.display="grid";
+  document.getElementById("categories").style.display="flex";
+  document.getElementById("search").parentElement.style.display="flex";
+  selectedCategory="ሁሉም";
+  createCategories();
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showHome() {
+  showAll();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function about() {
+  alert("ደቂቀ ጎርጎርዮስ፦ የእምነት፣ የታሪክና የዕቅበተ እምነት ዲጂታል ላይብረሪ።");
+}
+
+createCategories();
+render();
+</script>
+
+<footer>
+  <strong>ደቂቀ ጎርጎርዮስ</strong>
+  <p>አንድ አምላክ አንድ ጌታ አንድ መንፈስ</p>
+  <p>© 2026 Deqiqe Gorgorios Digital Library</p>
+  <p>ለትምህርትና ለጥናት የተዘጋጀ መድረክ።</p>
+</footer>
+
+</body>
+  </html>
+  
